@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+				  <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Dooodles</title>
+
+		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+
+		<link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+	</head>
+
+	<body>
+		<div class="loggedinbody">
+			<header>
+				<img src="banner.jpg" alt="dooodles">
+				<input type="button" id="headerbutton" value="Start game"/>
+				<div class="score">Team 1 Score: <span class="points" id="team1score">0</span> Team 2 Score: <span class="points" id="team1score">0</span> </div>
+			</header>
+			
+			<canvas id="team1canvas"> </canvas>
+			
+			<div class="centerline">
+			</div>
+			
+			<canvas id="team2canvas"> </canvas>
+		</div>
+	</body>
+	<script>
+
+		$(document).ready(function()
+			{ 
+		var myDataRef = new Firebase('https://dooodles.firebaseio.com/');
+
+		// detectMobile() 
+
+		// myDataRef.child('currId' + 1).set(0);
+		// myDataRef.child('currId' + 2).set(0);
+		
+		// var nameCookie;
+		// var teamCookie;
+		// var status;
+
+		// function readCookie()
+		// {
+		// var allCookies = document.cookie;
+		// var cookieArray  = allcookies.split(';');
+		// for(var i=0; i<cookiearray.length; i++) {
+		//       nameCookie = cookiearray[i].split('=')[0];
+		//       teamCookie = cookiearray[i].split('=')[1];
+		//       //alert("Key is : " + name + " and Value is : " + value);
+		// }
+		// }
+
+		// readCookie();
+
+		// // i need to read the current thing from db for this person's team and see if it's equal to the number
+		// // wraparound ******mod 5 bLAH***** -> need to keep track of total number of players
+		// myDataRef.child('currId' + teamCookie).on('value', function (snapshot) {
+		// 	if (snapshot.val() === nameCookie) {
+		// 		status = "drawer"
+		// 	} else {
+		// 		status = "guesser";
+		// 	}
+		// 	myDataRef.child('currId' + teamCookie).set(snapshot.val() + 1);
+		// })
+
+		// if (status === "drawer") {
+		// 	window.location = "drawer.html"
+
+		// 	//Set up some globals
+		// 	var pixSize = 8, lastPoint = null, currentColor = "000", mouseDown = 0;
+
+		// 	//Create a reference to the pixel data for our drawing.
+		// 	// ********* don't want to create new firebase - just push to a new json object
+		// 	// var pixelDataRef = new Firebase('https://m6e4lwm8gul.firebaseio-demo.com/');
+		// 	var myDataRef = new Firebase('https://dooodles.firebaseio.com/');
+
+
+
+		// 	// Setup each color palette & add it to the screen
+		// 	var colors = ["fff", "000", "f00", "0f0", "00f", "88f", "f8d", "f88", "f05", "f80", "0f8", "cf0", "08f", "408", "ff8", "8ff"];
+		// 	for (c in colors)
+		// 	{
+		// 		var item = $('<div/>').css("background-color", '#' + colors[c]).addClass("colorbox");
+		// 		item.click((function()
+		// 		{
+		// 			var col = colors[c];
+		// 			return function()
+		// 			{
+		// 				currentColor = col;
+		// 			};
+		// 		})());
+		// 		item.appendTo('#colorholder');
+		// 	}
+
+		// 	//Keep track of if the mouse is up or down
+		// 	myCanvas.onmousedown = function()
+		// 	{
+		// 		mouseDown = 1;
+		// 	};
+		// 	myCanvas.onmouseout = myCanvas.onmouseup = function()
+		// 	{
+		// 		mouseDown = 0;
+		// 		lastPoint = null;
+		// 	};
+
+		// 	//Draw a line from the mouse's last position to its current position
+		// 	var drawLineOnMouseMove = function(e)
+		// 	{
+		// 		if (!mouseDown)
+		// 			return;
+
+		// 		e.preventDefault();
+
+		// 		// Bresenham's line algorithm. We use this to ensure smooth lines are drawn
+		// 		var offset = $('canvas').offset();
+		// 		var x1 = Math.floor((e.pageX - offset.left) / pixSize - 1), y1 = Math.floor((e.pageY - offset.top) / pixSize - 1);
+		// 		var x0 = (lastPoint == null) ? x1 : lastPoint[0];
+		// 		var y0 = (lastPoint == null) ? y1 : lastPoint[1];
+		// 		var dx = Math.abs(x1 - x0), dy = Math.abs(y1 - y0);
+		// 		var sx = (x0 < x1) ? 1 : -1, sy = (y0 < y1) ? 1 : -1, err = dx - dy;
+		// 		while (true)
+		// 		{
+		// 			// write the pixel into Firebase, or if we are drawing white, remove the pixel
+		// 			// ***** PIC 1 OR PIC 2
+		// 			myDataRef.child('pic' + teamCookie).child(x0 + ":" + y0).set(currentColor === "fff" ? null : currentColor);
+
+		// 			if (x0 == x1 && y0 == y1)
+		// 				break;
+		// 			var e2 = 2 * err;
+		// 			if (e2 > -dy)
+		// 			{
+		// 				err = err - dy;
+		// 				x0 = x0 + sx;
+		// 			}
+		// 			if (e2 < dx)
+		// 			{
+		// 				err = err + dx;
+		// 				y0 = y0 + sy;
+		// 			}
+		// 		}
+		// 		lastPoint = [x1, y1];
+		// 	};
+		// 	$(myCanvas).mousemove(drawLineOnMouseMove);
+		// 	$(myCanvas).mousedown(drawLineOnMouseMove);
+
+			// Set up our canvas
+			var myCanvas1 = document.getElementById('team1canvas');
+			var myCanvas2 = document.getElementById('team2canvas');
+			var myContext1 = myCanvas1.getContext ? myCanvas1.getContext('2d') : null;
+			var myContext2 = myCanvas2.getContext ? myCanvas2.getContext('2d') : null;
+
+			if (myContext1 == null)
+			{
+				alert("You must use a browser that supports HTML5 Canvas to run this demo.");
+				return;
+			}
+
+
+			// Add callbacks that are fired any time the pixel data changes and adjusts the canvas appropriately.
+			// Note that child_added events will be fired for initial pixel data as well.
+			var drawPixel1 = function(snapshot)
+			{
+				var coords = snapshot.name().split(":");
+				myContext1.fillStyle = "#" + snapshot.val();
+				myContext1.fillRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
+			};
+			var clearPixel1 = function(snapshot)
+			{
+				var coords = snapshot.name().split(":");
+				myContext1.clearRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
+			};
+			var drawPixel2 = function(snapshot)
+			{
+				var coords = snapshot.name().split(":");
+				myContext1.fillStyle = "#" + snapshot.val();
+				myContext1.fillRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
+			};
+			var clearPixel2 = function(snapshot)
+			{
+				var coords = snapshot.name().split(":");
+				myContext2.clearRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
+			};
+			myDataRef.child('pic1').on('child_added', drawPixel1);
+			myDataRef.child('pic1').on('child_changed', drawPixel1);
+			myDataRef.child('pic1').on('child_removed', clearPixel1);
+			myDataRef.child('pic2').on('child_added', drawPixel2);
+			myDataRef.child('pic2').on('child_changed', drawPixel2);
+			myDataRef.child('pic2').on('child_removed', clearPixel2);
+		} );
+
+
+// function detectMobile() {
+// var isMobile = {
+// Android : function() {
+//   return navigator.userAgent.match(/Android/i);
+//            },
+//         BlackBerry : function() {
+//                 return navigator.userAgent.match(/BlackBerry/i);
+//         },
+//         iOS : function() {
+//                 return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+//         },
+//         Opera : function() {
+//                 return navigator.userAgent.match(/Opera Mini/i);
+//         },
+//         Windows : function() {
+//                 return navigator.userAgent.match(/IEMobile/i);
+//         },
+//         any : function() {
+//                 return (isMobile.Android() || isMobile.BlackBerry() ||
+// isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+//         }
+// };
+
+// if (!isMobile.any()) {
+//         window.location = 'loggedin.html';
+// }
+// 	} 
+// });
+
+
+	</script>
+</html>
