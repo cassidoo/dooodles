@@ -33,8 +33,25 @@
 		<script>
 			$(document).ready(function()
 			{
+
+
+			var nameCookie;
+			var teamCookie;
+			function readCookie()
+			{
+			var allCookies = document.cookie;
+			var cookieArray  = allCookies.split(';');
+			for(var i=0; i<cookieArray.length; i++) {
+			nameCookie = cookieArray[i].split('=')[0];
+			teamCookie = cookieArray[i].split('=')[1];
+			//alert("Key is : " + name + " and Value is : " + value);
+			}
+			}
+			readCookie();
+
+
 			//Set up some globals
-			var pixSize = 8, lastPoint = null, currentColor = "000", mouseDown = 0;
+			var pixSize = 1, lastPoint = null, currentColor = "000", mouseDown = 0;
 
 			//Create a reference to the pixel data for our drawing.
 			// ********* don't want to create new firebase - just push to a new json object
@@ -95,8 +112,11 @@
 			while (true)
 			{
 			// write the pixel into Firebase, or if we are drawing white, remove the pixel
-			// ***** PIC 1 OR PIC 2
-			myDataRef.child('pic1').child(x0 + ":" + y0).set(currentColor === "fff" ? null : currentColor);
+			// ***** PIC 1 OR PIC 2d
+			
+			teamCookie = 2;
+			console.log(teamCookie);
+			myDataRef.child('pic' + teamCookie).child(x0 + ":" + y0).set(currentColor === "fff" ? null : currentColor);
 
 			if (x0 == x1 && y0 == y1)
 			break;
@@ -128,65 +148,13 @@
 			var clearPixel = function(snapshot)
 			{
 			var coords = snapshot.name().split(":");
+
 			myContext.clearRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
 			};
-			myDataRef.child('pic1').on('child_added', drawPixel);
-			myDataRef.child('pic1').on('child_changed', drawPixel);
-			myDataRef.child('pic1').on('child_removed', clearPixel);
-
-			function detectMobile() {
-			var isMobile = {
-			Android : function() {
-			return navigator.userAgent.match(/Android/i);
-			},
-			BlackBerry : function() {
-			return navigator.userAgent.match(/BlackBerry/i);
-			},
-			iOS : function() {
-			return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-			},
-			Opera : function() {
-			return navigator.userAgent.match(/Opera Mini/i);
-			},
-			Windows : function() {
-			return navigator.userAgent.match(/IEMobile/i);
-			},
-			any : function() {
-			return (isMobile.Android() || isMobile.BlackBerry() ||
-			isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-			}
-			};
-
-			if (isMobile.any()) {
-			window.location = 'mobile.html';
-			}
-
-			function writeCookie(nameIn,teamIn)
-			{
-			document.cookie= "name=nameIn; team=teamIn;";
-			}
-
-			// var exdate=new Date();
-			// exdate.setDate(exdate.getDate() + exdays);
-			// var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
-			var nameCookie;
-			var teamCookie;
-			function readCookie()
-			{
-			var allCookies = document.cookie;
-			var cookieArray  = allcookies.split(';');
-			for(var i=0; i<cookiearray.length; i++) {
-			nameCookie = cookiearray[i].split('=')[0];
-			teamCookie = cookiearray[i].split('=')[1];
-			//alert("Key is : " + name + " and Value is : " + value);
-			}
-			}
-			readCookie();
-
-			function determineState()
-			{
-
-			}
+			teamCookie = 2;
+			myDataRef.child('pic' + teamCookie).on('child_added', drawPixel);
+			myDataRef.child('pic' + teamCookie).on('child_changed', drawPixel);
+			myDataRef.child('pic' + teamCookie).on('child_removed', clearPixel);
 
 			});
 		</script>

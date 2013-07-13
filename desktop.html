@@ -75,8 +75,8 @@
 		// if (status === "drawer") {
 		// 	window.location = "drawer.html"
 
-		// 	//Set up some globals
-		// 	var pixSize = 8, lastPoint = null, currentColor = "000", mouseDown = 0;
+			//Set up some globals
+			var pixSize = 1, lastPoint = null, currentColor = "000", mouseDown = 0;
 
 		// 	//Create a reference to the pixel data for our drawing.
 		// 	// ********* don't want to create new firebase - just push to a new json object
@@ -181,8 +181,8 @@
 			var drawPixel2 = function(snapshot)
 			{
 				var coords = snapshot.name().split(":");
-				myContext1.fillStyle = "#" + snapshot.val();
-				myContext1.fillRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
+				myContext2.fillStyle = "#" + snapshot.val();
+				myContext2.fillRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
 			};
 			var clearPixel2 = function(snapshot)
 			{
