@@ -149,9 +149,8 @@ input[type="button"]:hover
 
 #headerbutton
 {
-	background: #02e400;
 	position: absolute;
-	width: 100px;
+	width: 150px;
 	height: 40px;
 	padding: 0;
 	margin: 0;
@@ -160,9 +159,34 @@ input[type="button"]:hover
 	display: inline-block;
 }
 
-#headerbutton:hover
+.join
 {
-	background: #02D900;
+	display: inline-block;
+	height: 150px;
+	width: 50%;
+	font-size: 4em;
+}
+
+#jointeam1
+{
+	background: #ff007e;
+	float: left;	
+}
+
+#jointeam1:hover
+{
+	background: #e70072;
+}
+
+#jointeam2
+{
+	background: #02e400;
+	float: right;
+}
+
+#jointeam2:hover
+{
+	background: #02d900;
 }
 
 @media only screen and (max-width: 600px)
