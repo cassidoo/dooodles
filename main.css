@@ -1,7 +1,20 @@
 body
 {
 	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-	background: #fff;
+	background: #f3f3f4;
+}
+
+.logobanner
+{
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+img
+{
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .maintext
@@ -35,7 +48,7 @@ input[type="text"]
 	border: none;
 	font-size: 1em;
 	padding: 1em 0 1em 1em;
-	background: #f6f6f6;
+	background: #fff;
 	color: #333;
 	font-weight: 600;
 }
@@ -59,15 +72,26 @@ input[type="button"]:hover
 	background: #00a0db;
 }
 
-@media only screen and (max-width: 480px)
+@media only screen and (max-width: 600px)
 {
 	.maintext
 	{
+		font-size: 2em;
 		line-height: 1em;
 	}
 	.subtext
 	{
-		line-height: 1.5em;
+		font-size: 1em;
+		line-height: 2em;
+	}
+	.logobanner
+	{
+		width: 100%;
+	}
+	img
+	{
+		width: 100%;
+		height: auto;
 	}
 	form
 	{
