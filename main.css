@@ -1,0 +1,22 @@
+body
+{
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+	background: #fff;
+}
+
+.maintext
+{
+	color: #333;
+	weight: 600;	
+}
+
+.subtext
+{
+	color: #555;
+	weight: 200;
+}
+
+header
+{
+	
+}
