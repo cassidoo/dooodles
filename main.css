@@ -52,7 +52,6 @@ header img
 
 header .score
 {
-	display: block;
 	position: absolute;
 	right: 100px;
 	display: inline-block;
@@ -150,15 +149,13 @@ input[type="button"]:hover
 
 #headerbutton
 {
+	background: #02e400;
+	position: absolute;
 	width: 100px;
 	height: 40px;
 	padding: 0;
-	background: #02e400;
-	
-	
-	
-	display: block;
-	position: absolute;
+	margin: 0;
+	top: 0px;
 	left: 300px;
 	display: inline-block;
 }
