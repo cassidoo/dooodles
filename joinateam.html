@@ -21,8 +21,29 @@
 			Join a team.
 		</div>
 		<form>
-			<input type="button" class="join" id="jointeam1" value="Team 1!">
-			<input type="button" class="join" id="jointeam2" value="Team 2!">
+			<input type="button" class="join" id="jointeam1" onclick="writeCookie1()" value="Team 1!">
+			<input type="button" class="join" id="jointeam2" onclick="writeCookie2()" value="Team 2!">
 		</form>
 	</body>
+
+	<script>
+		var uid;
+		var myDataRef = new Firebase('https://dooodles.firebaseio.com/');
+
+		myDataRef.child('currId' + 1).set(0);
+		myDataRef.child('currId' + 2).set(0);
+
+		function writeCookie1() {
+			myDataRef.child('currId' + 2).on('value', function(snapshot)) {
+			uid = snapshot.val();
+			myDataRef.child('currID' + 1).set(uid+1);
+			document.cookie= "name=" + uid + "; team=1;";
+		}
+		function writeCookie2() {
+			myDataRef.child('currId' + 2).on('value', function(snapshot)) {
+			uid = snapshot.val();
+			myDataRef.child('currID' + 2).set(uid+1);
+			document.cookie= "name=" + uid + "; team=2;";
+		}
+	</script>
 </html>
