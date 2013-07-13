@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+				  <script src="https://cdn.firebase.com/v0/firebase.js"></script>
 
 		<title>Dooodles</title>
 
@@ -24,8 +25,34 @@
 		<br>
 		<canvas id="drawingpreview"></canvas>
 		<form>
-			<input type="text" placeholder="Enter guess here!">
-			<input type="button" value="Guess">
+			<input type="text" id="guesstext" placeholder="Enter guess here!">
+			<input type="button" onclick="guess()" value="Guess">
 		</form>
+
 	</body>
+	<script>
+		var myDataRef = new Firebase('https://dooodles.firebaseio.com/');
+
+		guess = document.getElementById("guesstext").value;
+
+		var nameCookie;
+		var teamCookie;
+		function readCookie()
+		{
+			var allCookies = document.cookie;
+			var cookieArray  = allCookies.split(';');
+			for(var i=0; i<cookieArray.length; i++) {
+			nameCookie = cookieArray[i].split('=')[0];
+			teamCookie = cookieArray[i].split('=')[1];
+			//alert("Key is : " + name + " and Value is : " + value);
+		}
+		}
+		readCookie();
+
+		function guess() {
+			myDataRef.child('guesses' + teamCookie).push(guess);
+			document.getElementById("guesstext").value = '';
+		}
+	</script>
+
 </html>

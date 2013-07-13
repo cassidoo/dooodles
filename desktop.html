@@ -12,6 +12,8 @@
 
 		<link rel="stylesheet" type="text/css" media="screen" href="main.css" />
 		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script src="words.js"></script>
+
 
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<link rel="apple-touch-icon" href="apple-touch-icon.png" />
@@ -21,7 +23,7 @@
 		<div class="loggedinbody">
 			<header>
 				<img src="banner.jpg" alt="dooodles">
-				<input type="button" id="headerbutton" value="Start game"/>
+				<input type="button" id="headerbutton" onclick="start()" value="Start game"/>
 				<div class="score">Team 1 Score: <span class="points" id="team1score">0</span> Team 2 Score: <span class="points" id="team1score">0</span> </div>
 			</header>
 			
@@ -37,7 +39,90 @@
 
 		$(document).ready(function()
 			{ 
-		var myDataRef = new Firebase('https://dooodles.firebaseio.com/');
+			var myDataRef = new Firebase('https://dooodles.firebaseio.com/');
+
+			//Set up some globals
+			var pixSize = 1, lastPoint = null, currentColor = "000", mouseDown = 0;
+
+			// Set up our canvas
+			var myCanvas1 = document.getElementById('team1canvas');
+			var myCanvas2 = document.getElementById('team2canvas');
+			var myContext1 = myCanvas1.getContext ? myCanvas1.getContext('2d') : null;
+			var myContext2 = myCanvas2.getContext ? myCanvas2.getContext('2d') : null;
+
+			if (myContext1 == null)
+			{
+				alert("You must use a browser that supports HTML5 Canvas to run this demo.");
+				return;
+			}
+
+			// generate words
+			var team1word;
+			var team2word;
+
+			function start() {
+				// clear pics
+				myDataRef.child('pic1').remove();
+				myDataRef.child('pic2').remove();
+
+				// start a new game - call backs?
+				myDataRef.child('gameStart').set(Math.random());
+
+				// assign drawers - call backs?
+
+
+				// also need to update word
+				team1word = generateWord();
+				team2word = generateWord();
+
+				// listen for changes to DB - push to list of candidates and listen here.
+				myDataRef.child('guess1').on('child_added', function(snapshot) {
+					currguess =snapshot.val();
+					if (checkIfCorrect(currguess, team1word) {
+
+
+						myDataRef.child('gameOver').set('true');
+						start()
+					}
+				})
+
+			}
+
+
+
+
+
+			// Add callbacks that are fired any time the pixel data changes and adjusts the canvas appropriately.
+			// Note that child_added events will be fired for initial pixel data as well.
+			var drawPixel1 = function(snapshot)
+			{
+				var coords = snapshot.name().split(":");
+				myContext1.fillStyle = "#" + snapshot.val();
+				myContext1.fillRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
+			};
+			var clearPixel1 = function(snapshot)
+			{
+				var coords = snapshot.name().split(":");
+				myContext1.clearRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
+			};
+			var drawPixel2 = function(snapshot)
+			{
+				var coords = snapshot.name().split(":");
+				myContext2.fillStyle = "#" + snapshot.val();
+				myContext2.fillRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
+			};
+			var clearPixel2 = function(snapshot)
+			{
+				var coords = snapshot.name().split(":");
+				myContext2.clearRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
+			};
+			myDataRef.child('pic1').on('child_added', drawPixel1);
+			myDataRef.child('pic1').on('child_changed', drawPixel1);
+			myDataRef.child('pic1').on('child_removed', clearPixel1);
+			myDataRef.child('pic2').on('child_added', drawPixel2);
+			myDataRef.child('pic2').on('child_changed', drawPixel2);
+			myDataRef.child('pic2').on('child_removed', clearPixel2);
+		} );
 
 		// detectMobile() 
 
@@ -74,9 +159,6 @@
 
 		// if (status === "drawer") {
 		// 	window.location = "drawer.html"
-
-			//Set up some globals
-			var pixSize = 1, lastPoint = null, currentColor = "000", mouseDown = 0;
 
 		// 	//Create a reference to the pixel data for our drawing.
 		// 	// ********* don't want to create new firebase - just push to a new json object
@@ -152,50 +234,6 @@
 		// 	$(myCanvas).mousemove(drawLineOnMouseMove);
 		// 	$(myCanvas).mousedown(drawLineOnMouseMove);
 
-			// Set up our canvas
-			var myCanvas1 = document.getElementById('team1canvas');
-			var myCanvas2 = document.getElementById('team2canvas');
-			var myContext1 = myCanvas1.getContext ? myCanvas1.getContext('2d') : null;
-			var myContext2 = myCanvas2.getContext ? myCanvas2.getContext('2d') : null;
-
-			if (myContext1 == null)
-			{
-				alert("You must use a browser that supports HTML5 Canvas to run this demo.");
-				return;
-			}
-
-
-			// Add callbacks that are fired any time the pixel data changes and adjusts the canvas appropriately.
-			// Note that child_added events will be fired for initial pixel data as well.
-			var drawPixel1 = function(snapshot)
-			{
-				var coords = snapshot.name().split(":");
-				myContext1.fillStyle = "#" + snapshot.val();
-				myContext1.fillRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
-			};
-			var clearPixel1 = function(snapshot)
-			{
-				var coords = snapshot.name().split(":");
-				myContext1.clearRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
-			};
-			var drawPixel2 = function(snapshot)
-			{
-				var coords = snapshot.name().split(":");
-				myContext2.fillStyle = "#" + snapshot.val();
-				myContext2.fillRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
-			};
-			var clearPixel2 = function(snapshot)
-			{
-				var coords = snapshot.name().split(":");
-				myContext2.clearRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
-			};
-			myDataRef.child('pic1').on('child_added', drawPixel1);
-			myDataRef.child('pic1').on('child_changed', drawPixel1);
-			myDataRef.child('pic1').on('child_removed', clearPixel1);
-			myDataRef.child('pic2').on('child_added', drawPixel2);
-			myDataRef.child('pic2').on('child_changed', drawPixel2);
-			myDataRef.child('pic2').on('child_removed', clearPixel2);
-		} );
 
 
 // function detectMobile() {

@@ -29,13 +29,11 @@
 		</div>
 
 		<div id="colorholder"></div>
-		<input type="button" id="clearbutton" value="Clear Canvas"/>
+		<input type="button" id="clearbutton" onclick="clear()" value="Clear Canvas"/>
 
 		<script>
 			$(document).ready(function()
 			{
-
-
 			var nameCookie;
 			var teamCookie;
 			function readCookie()
@@ -58,6 +56,10 @@
 			// ********* don't want to create new firebase - just push to a new json object
 			// var pixelDataRef = new Firebase('https://m6e4lwm8gul.firebaseio-demo.com/');
 			var myDataRef = new Firebase('https://dooodles.firebaseio.com/');
+
+			function clear() {
+				myDataRef.child('pic' + teamCookie).remove();
+			}
 
 			// Set up our canvas
 			var myCanvas = document.getElementById('drawing-canvas');
@@ -158,6 +160,10 @@
 			myDataRef.child('pic' + teamCookie).on('child_removed', clearPixel);
 
 			});
+
+			myDataRef.child('gameStart').on('value', function(snapshot) {
+				
+			})
 		</script>
 	</body>
 </html>

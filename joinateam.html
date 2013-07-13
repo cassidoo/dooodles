@@ -25,7 +25,7 @@
 			myDataRef.child('currId' + 2).on('value', function(snapshot) {
 			uid = snapshot.val();
 			myDataRef.child('currId' + 1).set(uid+1);
-			document.cookie= "name=" + uid + "; team=1;";
+			document.cookie= "name=" + uid + ";team=1;";
 			window.location = "loggedin.html"
 
 		});
@@ -35,7 +35,7 @@
 			myDataRef.child('currId' + 2).on('value', function(snapshot) {
 			uid = snapshot.val();
 			myDataRef.child('currID' + 2).set(uid+1);
-			document.cookie= "name=" + uid + "; team=2;";
+			document.cookie= "name=" + uid + ";team=2;";
 			window.location = "loggedin.html"
 
 		});
