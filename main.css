@@ -1,7 +1,95 @@
 body
 {
 	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-	background: #fff;
+	background: #f3f3f4;
+	overflow: hidden;
+}
+
+.loggedinbody
+{
+	position: relative;
+	top: 0px;
+	left: -50px;
+	background: #ffffff;
+	width: 100%;
+	padding-left: 50px;
+	padding-right: 50px;
+	min-height: 1440px;
+}
+
+.logobanner
+{
+	display: block;
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+img
+{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+header
+{
+	position: absolute;
+	height: 50px;
+	width: 100%;
+	background: #f3f3f4;
+	top: 0px;
+	left: 0px;
+	padding-left: 30px;
+	display: block;
+	z-index: 10;
+}
+
+header img
+{
+	height: 47px;
+	width: auto;
+}
+
+header .score
+{
+	position: absolute;
+	right: 100px;
+	display: inline-block;
+	font-size: 2em;
+	font-weight: 600;
+}
+
+.points
+{
+	margin-right: 100px;
+}
+
+.centerline
+{
+	background: #f6f6f6;
+	width: 1px;
+	position: relative;
+	left: 50%;
+	min-height: 1440px;
+	z-index: 2;
+}
+
+#team1canvas
+{
+	width: 50%;
+	position: absolute;
+	top: 60px;
+	left: 0px;
+	z-index: 3;
+}
+
+#team2canvas
+{
+	width: 50%;
+	position: absolute;
+	top: 60px;
+	left: 50%;
+	z-index: 4;
 }
 
 .maintext
@@ -35,7 +123,7 @@ input[type="text"]
 	border: none;
 	font-size: 1em;
 	padding: 1em 0 1em 1em;
-	background: #f6f6f6;
+	background: #fff;
 	color: #333;
 	font-weight: 600;
 }
@@ -59,15 +147,44 @@ input[type="button"]:hover
 	background: #00a0db;
 }
 
-@media only screen and (max-width: 480px)
+#headerbutton
+{
+	background: #02e400;
+	position: absolute;
+	width: 100px;
+	height: 40px;
+	padding: 0;
+	margin: 0;
+	top: 0px;
+	left: 300px;
+	display: inline-block;
+}
+
+#headerbutton:hover
+{
+	background: #02D900;
+}
+
+@media only screen and (max-width: 600px)
 {
 	.maintext
 	{
+		font-size: 2em;
 		line-height: 1em;
 	}
 	.subtext
 	{
-		line-height: 1.5em;
+		font-size: 1em;
+		line-height: 2em;
+	}
+	.logobanner
+	{
+		width: 100%;
+	}
+	img
+	{
+		width: 100%;
+		height: auto;
 	}
 	form
 	{
