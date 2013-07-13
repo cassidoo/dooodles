@@ -190,11 +190,7 @@ input[type="button"]:hover
 
 @media only screen and (max-width: 600px)
 {
-	.maintext
-	{
-		font-size: 2em;
-		line-height: 1em;
-	}
+
 	.subtext
 	{
 		font-size: 1em;
