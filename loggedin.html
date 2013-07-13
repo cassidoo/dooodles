@@ -36,6 +36,8 @@
 		$(document).ready(function()
 			{ 
 
+		detectMobile() 
+
 		myDataRef.child('currId' + 1).set(0);
 		myDataRef.child('currId' + 2).set(0);
 		
@@ -68,8 +70,10 @@
 		})
 
 		if (status === "drawer") {
-			window.location("")
-
+			window.location = "drawer.html"
+} else {
+	window.location = "guesser.html"
+}
 			//Set up some globals
 			var pixSize = 8, lastPoint = null, currentColor = "000", mouseDown = 0;
 
@@ -171,12 +175,7 @@
 			myDataRef.child('pic1').on('child_changed', drawPixel);
 			myDataRef.child('pic1').on('child_removed', clearPixel);
 
-		} else {
-		// not drawer
-
-
-
-	}
+		
 
 
 
@@ -203,11 +202,9 @@ isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
         }
 };
 
-if (isMobile.any()) {
-        window.location = 'mobile.html';
+if (!isMobile.any()) {
+        window.location = 'desktop.html';
 }
-
-
 	} 
 });
 
