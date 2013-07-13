@@ -92,6 +92,29 @@ header .score
 	z-index: 4;
 }
 
+#team1
+{
+	width: 50%;
+	position: absolute;
+	top: 60px;
+}
+
+#team2
+{
+	width: 50%;
+	position: absolute;
+	top: 60px;
+	right: 50px;
+	text-align: right;
+}
+
+.guessedWord
+{
+	color: #333;
+	font-size: 3em;
+	font-weight: 600;
+}
+
 .maintext
 {
 	text-align: center;
