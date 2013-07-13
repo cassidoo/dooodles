@@ -4,6 +4,10 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="https://www.firebase.com/css/example.css">
 		<style>
+			body
+			{
+				background: #F3F3F4;
+			}
 			.colorbox
 			{
 				border-radius: 3px;
@@ -16,10 +20,14 @@
 				border: 2px solid #424547;
 				padding: 3px;
 			}
+			.canvasdiv
+			{
+				background: #fff;
+			}
 		</style>
 	</head>
 	<body>
-		<div>
+		<div class="canvasdiv">
 			<canvas id="drawing-canvas" width="480" height="420"></canvas>
 		</div>
 		<div id="colorholder"></div>
