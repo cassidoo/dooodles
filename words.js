@@ -1,7 +1,5 @@
 function getRandomWord(words)
 {
-	//var words = JSON.parse(jsonWords);
-
 	var numWords = 0;
 	for (var x in words)
 	{
@@ -25,8 +23,7 @@ function getRandomWord(words)
 
 function generateWord()
 {
-	//$.getJSON('words.json', getRandomWord);
-	alert(getRandomWord(wordsArray));
+	return getRandomWord(wordsArray);
 }
 
 function checkIfCorrect(guessedword, actualword)
