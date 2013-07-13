@@ -1,0 +1,9 @@
+function generateWord()
+{
+	
+}
+
+function checkIfCorrect()
+{
+	
+}
