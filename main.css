@@ -164,13 +164,12 @@ input[type="button"]:hover
 	display: inline-block;
 	height: 150px;
 	width: 50%;
-	font-size: 4em;
 }
 
 #jointeam1
 {
 	background: #ff007e;
-	float: left;	
+	font-size: 4em;
 }
 
 #jointeam1:hover
@@ -181,7 +180,7 @@ input[type="button"]:hover
 #jointeam2
 {
 	background: #02e400;
-	float: right;
+	font-size: 4em;
 }
 
 #jointeam2:hover
