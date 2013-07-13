@@ -16,7 +16,10 @@
 
     //Create a reference to the pixel data for our drawing.
     // ********* don't want to create new firebase - just push to a new json object
-    var pixelDataRef = new Firebase('https://m6e4lwm8gul.firebaseio-demo.com/');
+    var myDataRef = new Firebase('https://dooodles.firebaseio.com/');
+    // var pixelDataRef = new Firebase('https://m6e4lwm8gul.firebaseio-demo.com/');
+
+    // *** need to create a json object containing a session to push and edit.
 
     // Set up our canvas
     var myCanvas = document.getElementById('drawing-canvas');
@@ -61,7 +64,9 @@
       var sx = (x0 < x1) ? 1 : -1, sy = (y0 < y1) ? 1 : -1, err = dx - dy;
       while (true) {
         //write the pixel into Firebase, or if we are drawing white, remove the pixel
-        pixelDataRef.child(x0 + ":" + y0).set(currentColor === "fff" ? null : currentColor);
+        // *** CHANGE so it changes a child ****
+        //pixelDataRef.child(x0 + ":" + y0).set(currentColor === "fff" ? null : currentColor);
+        myDataRef.child('session').child('pic1')
 
         if (x0 == x1 && y0 == y1) break;
         var e2 = 2 * err;
@@ -94,6 +99,75 @@
     pixelDataRef.on('child_changed', drawPixel);
     pixelDataRef.on('child_removed', clearPixel);
   });
+
+
+
+
+    function detectMobile() {
+      var isMobile = {
+        Android : function() {
+          return navigator.userAgent.match(/Android/i);
+                   },
+                BlackBerry : function() {
+                        return navigator.userAgent.match(/BlackBerry/i);
+                },
+                iOS : function() {
+                        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+                },
+                Opera : function() {
+                        return navigator.userAgent.match(/Opera Mini/i);
+                },
+                Windows : function() {
+                        return navigator.userAgent.match(/IEMobile/i);
+                },
+                any : function() {
+                        return (isMobile.Android() || isMobile.BlackBerry() ||
+isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+                }
+        };
+
+        if (isMobile.any()) {
+                window.location = 'mobile.html';
+        }
+
+
+
+
+
+
+function writeCookie(nameIn,teamIn)
+{
+document.cookie= "name=nameIn; team=teamIn;";
+}
+
+
+// var exdate=new Date();
+// exdate.setDate(exdate.getDate() + exdays);
+// var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+var nameCookie;
+var teamCookie;
+function readCookie()
+{
+var allCookies = document.cookie;
+var cookieArray  = allcookies.split(';');
+for(var i=0; i<cookiearray.length; i++){
+      nameCookie = cookiearray[i].split('=')[0];
+      teamCookie = cookiearray[i].split('=')[1];
+      //alert("Key is : " + name + " and Value is : " + value);
+}
+}
+readCookie();
+
+
+
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
