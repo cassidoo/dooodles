@@ -39,7 +39,8 @@
 
 				//Create a reference to the pixel data for our drawing.
 				// ********* don't want to create new firebase - just push to a new json object
-				var pixelDataRef = new Firebase('https://m6e4lwm8gul.firebaseio-demo.com/');
+				// var pixelDataRef = new Firebase('https://m6e4lwm8gul.firebaseio-demo.com/');
+				var myDataRef = new Firebase('https://dooodles.firebaseio.com/');
 
 				// Set up our canvas
 				var myCanvas = document.getElementById('drawing-canvas');
@@ -50,7 +51,7 @@
 					return;
 				}
 
-				//Setup each color palette & add it to the screen
+				// Setup each color palette & add it to the screen
 				var colors = ["fff", "000", "f00", "0f0", "00f", "88f", "f8d", "f88", "f05", "f80", "0f8", "cf0", "08f", "408", "ff8", "8ff"];
 				for (c in colors)
 				{
@@ -94,8 +95,9 @@
 					var sx = (x0 < x1) ? 1 : -1, sy = (y0 < y1) ? 1 : -1, err = dx - dy;
 					while (true)
 					{
-						//write the pixel into Firebase, or if we are drawing white, remove the pixel
-						pixelDataRef.child(x0 + ":" + y0).set(currentColor === "fff" ? null : currentColor);
+						// write the pixel into Firebase, or if we are drawing white, remove the pixel
+						// ***** PIC 1 OR PIC 2
+						myDataRef.child('pic1').child(x0 + ":" + y0).set(currentColor === "fff" ? null : currentColor);
 
 						if (x0 == x1 && y0 == y1)
 							break;
@@ -129,9 +131,75 @@
 					var coords = snapshot.name().split(":");
 					myContext.clearRect(parseInt(coords[0]) * pixSize, parseInt(coords[1]) * pixSize, pixSize, pixSize);
 				};
-				pixelDataRef.on('child_added', drawPixel);
-				pixelDataRef.on('child_changed', drawPixel);
-				pixelDataRef.on('child_removed', clearPixel);
+				myDataRef.child('pic1').on('child_added', drawPixel);
+				myDataRef.child('pic1').on('child_changed', drawPixel);
+				myDataRef.child('pic1').on('child_removed', clearPixel);
+
+
+    function detectMobile() {
+      var isMobile = {
+        Android : function() {
+          return navigator.userAgent.match(/Android/i);
+                   },
+                BlackBerry : function() {
+                        return navigator.userAgent.match(/BlackBerry/i);
+                },
+                iOS : function() {
+                        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+                },
+                Opera : function() {
+                        return navigator.userAgent.match(/Opera Mini/i);
+                },
+                Windows : function() {
+                        return navigator.userAgent.match(/IEMobile/i);
+                },
+                any : function() {
+                        return (isMobile.Android() || isMobile.BlackBerry() ||
+isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+                }
+        };
+
+        if (isMobile.any()) {
+                window.location = 'mobile.html';
+        }
+
+
+
+
+
+
+function writeCookie(nameIn,teamIn)
+{
+document.cookie= "name=nameIn; team=teamIn;";
+}
+
+
+// var exdate=new Date();
+// exdate.setDate(exdate.getDate() + exdays);
+// var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+var nameCookie;
+var teamCookie;
+function readCookie()
+{
+var allCookies = document.cookie;
+var cookieArray  = allcookies.split(';');
+for(var i=0; i<cookiearray.length; i++) {
+      nameCookie = cookiearray[i].split('=')[0];
+      teamCookie = cookiearray[i].split('=')[1];
+      //alert("Key is : " + name + " and Value is : " + value);
+}
+}
+readCookie();
+
+function determineState() 
+{
+
+}
+
+
+
+
+
 			});
 		</script>
 	</body>
