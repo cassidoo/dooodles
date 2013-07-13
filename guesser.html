@@ -9,6 +9,7 @@
 		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
 
 		<link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -18,14 +19,13 @@
 			<img src="banner.jpg" alt="dooodles">
 		</div>
 		<div class="maintext">
-			Pick a room.
+			Team <span id="teamnumber">1</span>
 		</div>
-		<div class="subtext">
-			Play Dooodles with as many people as you'd like.
-		</div>
+		<br>
+		<canvas id="drawingpreview"></canvas>
 		<form>
-			<input type="text" placeholder="Room name">
-			<input type="button" value="Let's go!">
+			<input type="text" placeholder="Enter guess here!">
+			<input type="button" value="Guess">
 		</form>
 	</body>
 </html>
