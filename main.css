@@ -6,17 +6,83 @@ body
 
 .maintext
 {
+	text-align: center;
 	color: #333;
-	weight: 600;	
+	font-weight: 600;
+	font-size: 3em;
+	line-height: 1em;
 }
 
 .subtext
 {
+	text-align: center;
 	color: #555;
-	weight: 200;
+	font-weight: 200;
+	font-size: 2em;
+	line-height: 3em;
 }
 
-header
+form
 {
-	
+	width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+input[type="text"]
+{
+	width: 400px;
+	border: none;
+	font-size: 1em;
+	padding: 1em 0 1em 1em;
+	background: #f6f6f6;
+	color: #333;
+	font-weight: 600;
+}
+
+input[type="button"]
+{
+	width: 416px;
+	border: none;
+	color: #fff;
+	font-size: 1em;
+	padding: .5em;
+	margin: 5px 0 5px 0;
+	border-radius: 3px;
+	font-weight: bold;
+	line-height: 40px;
+	background: #00aeff;
+}
+
+input[type="button"]:hover
+{
+	background: #00a0db;
+}
+
+@media only screen and (max-width: 480px)
+{
+	.maintext
+	{
+		line-height: 1em;
+	}
+	.subtext
+	{
+		line-height: 1.5em;
+	}
+	form
+	{
+		width: 100%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	input[type="text"]
+	{
+		width: 100%;
+	}
+
+	input[type="button"]
+	{
+		width: 100%;
+	}
 }
