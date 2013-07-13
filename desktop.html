@@ -24,7 +24,7 @@
 			<header>
 				<img src="banner.jpg" alt="dooodles">
 				<input type="button" id="headerbutton" onclick="start()" value="Start game"/>
-				<div class="score">Team 1 Score: <span class="points" id="team1score">0</span> Team 2 Score: <span class="points" id="team1score">0</span> </div>
+				<div class="score">Team 1 Score: <span class="points" id="team1score">0</span> Team 2 Score: <span class="points" id="team2score">0</span> </div>
 			</header>
 			
 			<canvas id="team1canvas"> </canvas>
@@ -40,7 +40,10 @@
 		$(document).ready(function()
 			{ 
 			var myDataRef = new Firebase('https://dooodles.firebaseio.com/');
-
+			var team1points = 0;
+			var team2points = 0;
+			document.getElementById("team1score").innerHTML = team1points;
+			document.getElementById("team2score").innerHTML = team2points;
 			//Set up some globals
 			var pixSize = 1, lastPoint = null, currentColor = "000", mouseDown = 0;
 
@@ -65,11 +68,13 @@
 				myDataRef.child('pic1').remove();
 				myDataRef.child('pic2').remove();
 
-				// start a new game - call backs?
-				myDataRef.child('gameStart').set(Math.random());
-
-				// assign drawers - call backs?
-
+				// start a new game - assign guesseres, draweres with call backs?
+				myDataRef.child('currId1').on('value', function(snapshot) {
+					myDataRef.child('currId1').set(snapshot.value() + 1);
+				})
+				myDataRef.child('currId2').on('value', function(snapshot) {
+					myDataRef.child('currId2').set(snapshot.value() + 1);
+				})
 
 				// also need to update word
 				team1word = generateWord();
@@ -77,19 +82,26 @@
 
 				// listen for changes to DB - push to list of candidates and listen here.
 				myDataRef.child('guess1').on('child_added', function(snapshot) {
-					currguess =snapshot.val();
-					if (checkIfCorrect(currguess, team1word) {
-
-
-						myDataRef.child('gameOver').set('true');
+					currguess = snapshot.val();
+					if (checkIfCorrect(currguess, team1word)) {
+						team1points++;
+						document.getElementById("team1score").innerHTML = team1points;
+						// myDataRef.child('gameOver').set('true');
 						start()
 					}
-				})
+				});
+				
+				myDataRef.child('guess2').on('child_added', function(snapshot) {
+					currguess = snapshot.val();
+					if (checkIfCorrect(currguess, team2word)) {
+						team1points++;
+						document.getElementById("team2score").innerHTML = team1points;
+						// myDataRef.child('gameOver').set('true');
+						start()
+					}
+				});
 
 			}
-
-
-
 
 
 			// Add callbacks that are fired any time the pixel data changes and adjusts the canvas appropriately.

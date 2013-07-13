@@ -50,9 +50,15 @@
 		readCookie();
 
 		function guess() {
-			myDataRef.child('guesses' + teamCookie).push(guess);
+			myDataRef.child('guess' + teamCookie).push(guess);
 			document.getElementById("guesstext").value = '';
 		}
+
+		myDataRef.child('currId' + teamCookie).on('value', function(snapshot) {
+			if (snapshot.val() === nameCookie) {
+			window.location = "drawer.html";
+			}
+		})
 	</script>
 
 </html>

@@ -165,8 +165,10 @@
 
 			});
 
-			myDataRef.child('gameStart').on('value', function(snapshot) {
-				
+			myDataRef.child('currId' + teamCookie).on('value', function(snapshot) {
+				if (snapshot.val() != nameCookie) {
+					window.location = "guesser.html";
+				}
 			})
 		</script>
 	</body>
