@@ -163,13 +163,14 @@
 			myDataRef.child('pic' + teamCookie).on('child_changed', drawPixel);
 			myDataRef.child('pic' + teamCookie).on('child_removed', clearPixel);
 
-			});
+			
 
 			myDataRef.child('currId' + teamCookie).on('value', function(snapshot) {
 				if (snapshot.val() != nameCookie) {
 					window.location = "guesser.html";
 				}
-			})
+			});
+			
 		</script>
 	</body>
 </html>
